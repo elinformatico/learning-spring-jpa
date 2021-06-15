@@ -9,12 +9,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import net.elinformatico.model.Usuarios;
 import net.elinformatico.repository.UsuariosRepository;
+import net.elinformatico.service.jpa.UsuarioService;
 
 @SpringBootApplication
 public class SpringJpaApplication implements CommandLineRunner {
 
+	// @Autowired
+	// private UsuariosRepository usuariosRepo;
+	
 	@Autowired
-	private UsuariosRepository usuariosRepo;
+	private UsuarioService usuarioService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringJpaApplication.class, args);
@@ -27,20 +31,20 @@ public class SpringJpaApplication implements CommandLineRunner {
 		// Guardando un registro en la Base de Datos
 		guardar();
 		
-		
 		System.out.println(" -------------------------------------------------------");
 	}
 	
 	private void guardar() {
 		Usuarios usuario = new Usuarios();
-		usuario.setNombre("Noe Hernandez");
-		usuario.setUsername("elinformatico");
+		usuario.setNombre("Noe Hernandez Vivanco1");
+		usuario.setUsername("elinformaticomx1");
 		usuario.setPassword("Noe321");
-		usuario.setEmail("donoe1985@gmail.com");
+		usuario.setEmail("elinformaticomx1@gmail.com");
 		usuario.setStatus(1);
 		usuario.setFechaRegistro(new Date());
 		
-		usuariosRepo.save(usuario);
+		// usuariosRepo.save(usuario);
+		usuarioService.guardarUsuario(usuario);
 		
 		System.out.println(usuario);
 	}
