@@ -1,8 +1,8 @@
 package net.elinformatico.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import net.elinformatico.model.Usuarios;
 
-public interface UsuariosRepository extends CrudRepository<Usuarios, Integer> {
+public interface UsuariosRepository extends JpaRepository<Usuarios, Integer> {
 	
 }
