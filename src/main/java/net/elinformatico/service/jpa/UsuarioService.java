@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import net.elinformatico.model.Usuarios;
@@ -56,7 +57,8 @@ public class UsuarioService implements IUsuarioService{
 
 	@Override
 	public void borrarTodo() {
-		repo.deleteAll();
+		repo.deleteAll(); // Delete executing One by One
+		// repo.deleteAllInBatch(); // Delete all "DELETE FROM <TABLE>" without WHERE
 	}
 
 	@Override
@@ -67,6 +69,10 @@ public class UsuarioService implements IUsuarioService{
 	@Override
 	public Iterable<Usuarios> buscarTodos() {
 		return repo.findAll();
+	}
+	
+	public List<Usuarios> buscarTodos(Sort sort) {
+		return repo.findAll(sort);
 	}
 
 	@Override

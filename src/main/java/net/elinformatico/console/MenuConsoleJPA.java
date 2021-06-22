@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import net.elinformatico.model.Usuarios;
 import net.elinformatico.service.jpa.UsuarioService;
@@ -23,12 +27,15 @@ public class MenuConsoleJPA implements IMenuConsole{
 				+ "3) Eliminar Usuario por ID 'deleteById(Integer)' \n"
 				+ "4) Eliminar Usuario por Entidad 'delete(Entity)' \n"
 				+ "5) Modificar Usuario 'save(Entity)' --> with ID to Update\n"
-				+ "6) Mostrar todos los Usuarios \n"
+				+ "6.1) Mostrar todos los Usuarios \n"
+				+ "6.2) Mostrar todos los Usuarios v2\n"
 				+ "7) Obtener numero de Usuarios Registrado 'count()' \n"
 				+ "8) Eliminar todos los Usuarios 'deleteAll()' \n"
 				+ "9) Buscar por varios ID 'findAllById(Iterable<ID> ids)'\n"
 				+ "10) Verificar si existe Usuario por ID 'existsById(Integer)' \n"
 				+ "11) Guardar varios Usuarios 'saveAll(Iterable<Usuarios>)' \n"
+				+ "------- Advance options ----------------------------------\n"
+				+ "12) Paginacion de Registros 'Page<T> findAll(Pageable pageable)' \n"
 				+ "(salir) Para salir de la Aplicacion");
 	}
 	
@@ -40,6 +47,7 @@ public class MenuConsoleJPA implements IMenuConsole{
 		String idUsuario = "";
 		String inputLine = "";
 		Usuarios usuario;
+		List<Usuarios> usuarios;
 			
 		do {
 			showMainMenu();
@@ -141,7 +149,7 @@ public class MenuConsoleJPA implements IMenuConsole{
 				break;
 				
 				// GETTING ALL Usuarios ENTITIES FOUND
-				case "6" :
+				case "6.1" :
 					long countUsers = usuarioService.numeroRegistros();
 					System.out.println("\nMostrando " + countUsers + " Usuarios Registrados de la Tabla Usuarios:\n");
 					Iterable<Usuarios> allUsers = usuarioService.buscarTodos();
@@ -149,6 +157,17 @@ public class MenuConsoleJPA implements IMenuConsole{
 					for(Usuarios user : allUsers) {
 						System.out.println(user);
 					}
+					
+				break;
+				
+				case "6.2" : 
+					
+					// List<Usuarios>
+					usuarios = usuarioService.buscarTodos(Sort.by("nombre").descending());
+					System.out.println("\nMostrando listado de usuarios registrados: \n");
+					for(Usuarios user : usuarios) {
+						System.out.println(user.getId() + ", " + user.getNombre() + ", " + user.getUsername());
+					} 
 					
 				break;
 									
@@ -183,8 +202,8 @@ public class MenuConsoleJPA implements IMenuConsole{
 					System.out.println("\nMostrando los Usuarios seleccionado: \n");
 					
 					// Getting a List Entities of Usuarios
-					Iterable<Usuarios> usuarios = usuarioService.obtenerUsuario(ids);
-					for(Usuarios user : usuarios) {
+					Iterable<Usuarios> users = usuarioService.obtenerUsuario(ids);
+					for(Usuarios user : users) {
 						System.out.println(user);
 					}
 				break;
@@ -247,6 +266,21 @@ public class MenuConsoleJPA implements IMenuConsole{
 					// Showing the new User saved
 					for(Usuarios user : newUsersSaved) {
 						System.out.println(user);
+					}
+					
+				break;
+				
+				case "12" : 
+					
+					Page<Usuarios> paginas= usuarioService.obtenerRepo()
+						.findAll(PageRequest.of(1, 3, Sort.by("nombre")));
+					
+					System.out.println("Numero Total de Registros (getTotalElements): " + paginas.getTotalElements());
+					System.out.println("Numero Total de Paginas (getTotalPages): " + paginas.getTotalPages());
+					System.out.println("getNumberOfElements: " + paginas.getNumberOfElements());
+					
+					for(Usuarios u : paginas.getContent()) {
+						System.out.println(u.getId() + ", " + u.getNombre());
 					}
 					
 				break;
