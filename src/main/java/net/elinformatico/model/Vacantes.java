@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "vacantes")
@@ -19,10 +20,13 @@ public class Vacantes {
 	private String descripcion;
 	private Date fecha;
 	private Double salario;
-	private String status;
+	private String estatus;
 	private int destacado;
 	private String imagen;
 	private String detalles;
+	
+	@Transient
+	private Categorias categoria;
 	
 	public int getId() {
 		return id;
@@ -55,10 +59,10 @@ public class Vacantes {
 		this.salario = salario;
 	}
 	public String getStatus() {
-		return status;
+		return estatus;
 	}
 	public void setStatus(String status) {
-		this.status = status;
+		this.estatus = status;
 	}
 	public int getDestacado() {
 		return destacado;
@@ -78,10 +82,16 @@ public class Vacantes {
 	public void setDetalles(String detalles) {
 		this.detalles = detalles;
 	}
+	public Categorias getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(Categorias categoria) {
+		this.categoria = categoria;
+	}
 	@Override
 	public String toString() {
 		return "Vacantes [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", fecha=" + fecha
-				+ ", salario=" + salario + ", status=" + status + ", destacado=" + destacado + ", imagen=" + imagen
-				+ ", detalles=" + detalles + "]";
+				+ ", salario=" + salario + ", status=" + estatus + ", destacado=" + destacado + ", imagen=" + imagen
+				+ ", detalles=" + detalles + ", categoria.id=" + categoria.getId() + "]";
 	}
 }
