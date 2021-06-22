@@ -2,12 +2,23 @@ package net.elinformatico.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "solicitudes")
 public class Solicitudes {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private Date fecha;
 	private String archivo;
 	private String comentarios;
+	
 	public int getId() {
 		return id;
 	}
