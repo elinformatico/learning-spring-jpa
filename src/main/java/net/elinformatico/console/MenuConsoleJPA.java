@@ -68,7 +68,7 @@ public class MenuConsoleJPA implements IMenuConsole{
 				+ "------- Advance options ----------------------------------\n"
 				+ "13) Paginacion de Registros 'Page<T> findAll(Pageable pageable)' \n"
 				+ "14) Mostras datos Ligados (SQL INNER) \n"
-				+ "15) Guardar Vacante con relacion a tabla Categoria \n"
+				+ "15) Registrar Vacante con relacion a tabla Categoria \n"
 				+ "16) Registrar Perfiles \n"
 				+ "17) Mostrar Categorias \n"
 				+ "(*) Pruebas Rapidas (exit) Salir de la aplicacion \n");

@@ -133,18 +133,20 @@ public class JpaExamples {
 		System.out.println("Introduzca un nombre de imagen sin extension:");
 		inputLine = input.nextLine();
 		vacante.setImagen(inputLine + ".png");
-		
-		
+				
+		System.out.println("Introduzca un ID de Categoria de acuerdo a las siguientes Categorias: \n");
+
+		// Getting Categories
+		List<Categoria> categorias = categoriaService.obtenerCategorias();
+		for(Categoria c : categorias) {
+			System.err.println("ID: " + c.getId() + ", " + c.getNombre());
+		}
+		System.out.println("Introduzca el ID de Categoria: ");
+		inputLine = input.nextLine();
+
+		// Set the Category ID only
 		Categoria categoria = new Categoria();
-		
-		
-		/*do {
-			
-			
-		} while(true);*/
-		
-		
-		categoria.setId(3);
+		categoria.setId(Integer.valueOf(inputLine));
 		
 		// Set a Category Object
 		vacante.setCategoria(categoria);
