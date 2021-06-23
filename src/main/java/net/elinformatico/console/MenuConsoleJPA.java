@@ -13,8 +13,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import net.elinformatico.model.Categoria;
+import net.elinformatico.model.Perfil;
 import net.elinformatico.model.Vacante;
 import net.elinformatico.model.Vacantes;
+import net.elinformatico.service.jpa.PerfilesService;
 import net.elinformatico.service.jpa.UsuarioService;
 import net.elinformatico.service.jpa.VacantesService;
 
@@ -26,6 +28,9 @@ public class MenuConsoleJPA implements IMenuConsole{
 	
 	@Autowired
 	private VacantesService vacanteService;
+	
+	@Autowired
+	private PerfilesService perfilService;
 	
 	private void showMainMenu() {
 		System.out.println("\n\n\n-------- Java Persistance API (JPA) Menu -----------\n"
@@ -45,6 +50,7 @@ public class MenuConsoleJPA implements IMenuConsole{
 				+ "12) Paginacion de Registros 'Page<T> findAll(Pageable pageable)' \n"
 				+ "13) Mostras datos Ligados (SQL INNER) \n"
 				+ "14) Guardar Vacante con relacion a tabla Categoria \n"
+				+ "15) Registrar Perfiles \n"
 				+ "\n (*) Pruebas Rapidas \n"
 				+ "(exit) Para salir de la Aplicacion");
 	}
@@ -352,6 +358,27 @@ public class MenuConsoleJPA implements IMenuConsole{
 					vacanteService.obtenerRepo().save(vacante);
 					
 					System.out.println("\nSe almaceno la Vacante Correctamente \n");
+					
+				break;
+				
+				case "15" : 
+					
+					System.out.println("\nGuardando Perfiles.....\n");
+					List<Perfil> perfiles = new LinkedList<Perfil>();
+					Perfil supervisor = new Perfil();
+					supervisor.setPerfil("SUPERVISOR");
+					
+					Perfil admin = new Perfil();
+					admin.setPerfil("ADMINISTRADOR");
+					
+					Perfil user = new Perfil();
+					user.setPerfil("USUARIO");
+					
+					perfiles.add(supervisor);
+					perfiles.add(admin);
+					perfiles.add(user);
+					
+					perfilService.obtenerRepo().saveAll(perfiles);
 					
 				break;
 				

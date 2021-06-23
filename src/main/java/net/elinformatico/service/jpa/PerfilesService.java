@@ -2,6 +2,7 @@ package net.elinformatico.service.jpa;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import net.elinformatico.model.Perfil;
@@ -12,6 +13,7 @@ import net.elinformatico.service.IPerfilesService;
 @Service
 public class PerfilesService implements IPerfilesService {
 
+	@Autowired
 	private PefilesRepository repo;
 	
 	@Override
