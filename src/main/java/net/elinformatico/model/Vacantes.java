@@ -62,10 +62,10 @@ public class Vacantes {
 	public void setSalario(Double salario) {
 		this.salario = salario;
 	}
-	public String getStatus() {
+	public String getEstatus() {
 		return estatus;
 	}
-	public void setStatus(String status) {
+	public void setEstatus(String status) {
 		this.estatus = status;
 	}
 	public int getDestacado() {

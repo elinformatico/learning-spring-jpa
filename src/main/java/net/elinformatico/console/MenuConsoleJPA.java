@@ -11,6 +11,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import net.elinformatico.model.Categoria;
 import net.elinformatico.model.Usuarios;
 import net.elinformatico.model.Vacantes;
 import net.elinformatico.service.jpa.UsuarioService;
@@ -42,6 +44,7 @@ public class MenuConsoleJPA implements IMenuConsole{
 				+ "------- Advance options ----------------------------------\n"
 				+ "12) Paginacion de Registros 'Page<T> findAll(Pageable pageable)' \n"
 				+ "13) Mostras datos Ligados (SQL INNER) \n"
+				+ "14) Guardar Vacante con relacion a tabla Categoria \n"
 				+ "\n (*) Pruebas Rapidas \n"
 				+ "(exit) Para salir de la Aplicacion");
 	}
@@ -323,6 +326,33 @@ public class MenuConsoleJPA implements IMenuConsole{
 					for(Vacantes v : vacantes) {
 						System.out.println(v.getId() + ", " + v.getNombre() + ", " + v.getCategoria().getNombre());
 					}
+				break;
+				
+				case "14" : 
+					
+					System.out.println("\nAlmacenando datos para Vacantes \n");
+					Vacantes vacante = new Vacantes();
+					vacante.setNombre("Full Stack Developer");
+					vacante.setDescripcion("Descripcion Fullstack Developer");
+					vacante.setFecha(new Date());
+					vacante.setSalario(75000.0);
+					vacante.setEstatus("Creada");
+					vacante.setDestacado(1);
+					vacante.setImagen("imageHcl.png");
+					vacante.setDetalles("Detalles Vacantes");
+					
+					// Creating a Category ID --> Full Stack Developer
+					Categoria categoria = new Categoria();
+					categoria.setId(3);
+					
+					// Set a Category Object
+					vacante.setCategoria(categoria);
+					
+					// Persist to the Database
+					vacanteService.obtenerRepo().save(vacante);
+					
+					System.out.println("\nSe almaceno la Vacante Correctamente \n");
+					
 				break;
 				
 				case "exit" : break;
