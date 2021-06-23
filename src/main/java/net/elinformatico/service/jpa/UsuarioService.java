@@ -50,7 +50,8 @@ public class UsuarioService implements IUsuarioService{
 		return repo.count();
 	}
 	
-	// Returning the Object Repository
+	// Returning the JPA Object Repository
+	@Override
 	public UsuariosRepository obtenerRepo() {
 		return repo;
 	}
@@ -62,12 +63,12 @@ public class UsuarioService implements IUsuarioService{
 	}
 
 	@Override
-	public Iterable<Vacante> obtenerUsuario(List<Integer> ids) {
+	public List<Vacante> obtenerUsuario(List<Integer> ids) {
 		return repo.findAllById(ids);
 	}
 
 	@Override
-	public Iterable<Vacante> buscarTodos() {
+	public List<Vacante> buscarTodos() {
 		return repo.findAll();
 	}
 	
@@ -76,7 +77,7 @@ public class UsuarioService implements IUsuarioService{
 	}
 
 	@Override
-	public Iterable<Vacante> guardarVarios(Iterable<Vacante> usuarios) {
+	public List<Vacante> guardarVarios(Iterable<Vacante> usuarios) {
 		return repo.saveAll(usuarios);
 	}
 }

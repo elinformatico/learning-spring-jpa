@@ -16,6 +16,7 @@ import net.elinformatico.model.Categoria;
 import net.elinformatico.model.Perfil;
 import net.elinformatico.model.Vacante;
 import net.elinformatico.model.Vacantes;
+import net.elinformatico.service.IUsuarioService;
 import net.elinformatico.service.jpa.PerfilesService;
 import net.elinformatico.service.jpa.UsuarioService;
 import net.elinformatico.service.jpa.VacantesService;
@@ -25,6 +26,8 @@ public class MenuConsoleJPA implements IMenuConsole{
 
 	@Autowired
 	private UsuarioService usuarioService;
+	//@Autowired
+	//private IUsuarioService usuarioService;
 	
 	@Autowired
 	private VacantesService vacanteService;
@@ -79,53 +82,37 @@ public class MenuConsoleJPA implements IMenuConsole{
 			
 				// INSERT VALUES TO THE TABLE "USER"
 				case "1" :
-		
-					System.out.println("En que Entidad deseas Guardar los datos?\n\n");
-					System.out.println("- usuarios \n"
-							+ "- vacantes \n");
 					
-					inputLine = input.nextLine();
-					
-					switch (inputLine) {
-					case "usuarios":
-						Vacante newUser = new Vacante();
-						System.out.println("\n\nInsertar Datos del Usuario\n\n");
-						
-						System.out.println("Introduzca el nombre: ");
-						inputLine= input.nextLine();
-						newUser.setNombre(inputLine);
-						
-						System.out.println("Introduzca el email: ");
-						inputLine = input.nextLine();
-						newUser.setEmail(inputLine);
-						
-						System.out.println("Insert un nombre de Usuario: ");
-						inputLine = input.nextLine();
-						newUser.setUsername(inputLine);
-						
-						System.out.println("Insert un Password: ");
-						inputLine = input.nextLine();
-						newUser.setPassword(inputLine);
-						
-						newUser.setStatus(1);
-						newUser.setFechaRegistro(new Date());
-						
-						usuarioService.guardar(newUser);
-						
-						System.out.println("\nSe registro el Usuario " + newUser.getNombre() + " en la Base de Datos! \n\n\n");
-						System.out.println(newUser);
-					break;
-					
-					case "vacantes" : break;
+					Vacante newUser = new Vacante();
+					System.out.println("\n\nRegistrando Datos del nuevo Usuario\n\n");
 
-					default:
-						break;
-					}
-					
-					
+					System.out.println("Introduzca el nombre: ");
+					inputLine= input.nextLine();
+					newUser.setNombre(inputLine);
+
+					System.out.println("Introduzca el email: ");
+					inputLine = input.nextLine();
+					newUser.setEmail(inputLine);
+
+					System.out.println("Insert un nombre de Usuario: ");
+					inputLine = input.nextLine();
+					newUser.setUsername(inputLine);
+
+					System.out.println("Insert un Password: ");
+					inputLine = input.nextLine();
+					newUser.setPassword(inputLine);
+
+					newUser.setStatus(1);
+					newUser.setFechaRegistro(new Date());
+
+					usuarioService.guardar(newUser);
+
+					System.out.println("\nSe registro el Usuario " + newUser.getNombre() + " en la Base de Datos! \n\n\n");
+					System.out.println(newUser);
+
 					break;
-					
-				// FIND USER BY ID
+
+					// FIND USER BY ID
 				case "2" :
 					System.out.println("\n\nBuscar Usuario por ID\n\n");
 					System.out.println("Introduzca el ID del Usuario: ");
