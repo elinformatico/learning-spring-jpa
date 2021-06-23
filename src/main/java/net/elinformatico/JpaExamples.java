@@ -129,12 +129,24 @@ public class JpaExamples {
 	 */
 	public void mostrarUsuariosUsandoPaginacion() 
 	{
+		System.out.println("¿Cuantos elementos desea mostrar por Pagina?");
+		inputLine = input.nextLine();
+		int size = Integer.valueOf(inputLine); 
+		
+		System.out.println("Introduzca el numero de Pagina a Mostrar");
+		inputLine = input.nextLine();
+		int page = Integer.valueOf(inputLine);
+		
+		System.out.println("¿Por cual columna deseas ordernarlo?");
+		inputLine = input.nextLine();
+		String orderBy = inputLine;
+				
 		Page<Usuario> paginas= usuarioService.obtenerRepo()
-				.findAll(PageRequest.of(1, 3, Sort.by("nombre")));
+				.findAll(PageRequest.of(page, size, Sort.by(orderBy)));
 
-		System.out.println("Numero Total de Registros (getTotalElements): " + paginas.getTotalElements());
-		System.out.println("Numero Total de Paginas (getTotalPages): " + paginas.getTotalPages());
-		System.out.println("getNumberOfElements: " + paginas.getNumberOfElements());
+		System.out.println("Value of getTotalElements(): " + paginas.getTotalElements());
+		System.out.println("Value of getTotalPages(): " + paginas.getTotalPages());
+		System.out.println("Value of getNumberOfElements(): " + paginas.getNumberOfElements());
 
 		for(Usuario u : paginas.getContent()) {
 			System.out.println(u.getId() + ", " + u.getNombre());
