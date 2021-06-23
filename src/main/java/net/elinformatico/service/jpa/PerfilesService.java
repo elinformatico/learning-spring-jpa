@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import net.elinformatico.model.Perfil;
-import net.elinformatico.model.Vacante;
+import net.elinformatico.model.Usuario;
 import net.elinformatico.repository.PefilesRepository;
 import net.elinformatico.service.IPerfilesService;
 
@@ -76,7 +76,7 @@ public class PerfilesService implements IPerfilesService {
 	}
 
 	@Override
-	public List<Perfil> guardarVarios(Iterable<Vacante> usuarios) {
+	public List<Perfil> guardarVarios(Iterable<Usuario> usuarios) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -3,7 +3,7 @@ package net.elinformatico.service;
 import java.util.List;
 
 import net.elinformatico.model.Perfil;
-import net.elinformatico.model.Vacante;
+import net.elinformatico.model.Usuario;
 import net.elinformatico.repository.PefilesRepository;
 
 public interface IPerfilesService {
@@ -17,5 +17,5 @@ public interface IPerfilesService {
 	public void borrarTodo();
 	public List<Perfil> buscarTodos();
 	public List<Perfil> obtenerUsuario(List<Integer> ids);
-	public List<Perfil> guardarVarios(Iterable<Vacante> usuarios);
+	public List<Perfil> guardarVarios(Iterable<Usuario> usuarios);
 }
