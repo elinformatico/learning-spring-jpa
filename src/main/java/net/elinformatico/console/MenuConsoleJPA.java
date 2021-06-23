@@ -58,7 +58,7 @@ public class MenuConsoleJPA implements IMenuConsole{
 				+ "4)  Eliminar Usuario por Entidad 'delete(Entity)' \n"
 				+ "5)  Modificar Usuario 'save(Entity)' --> with ID to Update\n"
 				+ "6)  Mostrar todos los Usuarios \n"
-				+ "7)  Mostrar todos los Usuarios v2\n"
+				+ "7)  Mostrar todos los Usuarios por Ordenamiento \n"
 				+ "8)  Obtener numero de Usuarios Registrado 'count()' \n"
 				+ "9)  Eliminar todos los Usuarios 'deleteAll()' \n"
 				+ "10) Buscar por varios ID 'findAllById(Iterable<ID> ids)'\n"

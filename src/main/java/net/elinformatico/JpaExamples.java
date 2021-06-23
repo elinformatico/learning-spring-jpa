@@ -295,11 +295,27 @@ public class JpaExamples {
 	 */
 	public void mostrarUsuariosUsandoOrdenamiento() 
 	{
-		List<Usuario> usuarios = usuarioService.buscarTodos(Sort.by("nombre").descending());
-		System.out.println("\nMostrando listado de usuarios registrados: \n");
-		for(Usuario user : usuarios) {
-			System.out.println(user.getId() + ", " + user.getNombre() + ", " + user.getUsername());
-		} 
+		System.out.println("¿Por cual columna deseas ordenar?");
+		String orderBy = input.nextLine();
+		
+		System.out.println("¿Que tipo de Ordenamiento? asc o des");
+		String typeOrder = input.nextLine();
+		
+		List<Usuario> usuarios = null; 
+		if(typeOrder.contains("asc")) {
+			usuarios = usuarioService.buscarTodos(Sort.by(orderBy).ascending());
+		} else if(typeOrder.contains("des")) {
+			usuarios = usuarioService.buscarTodos(Sort.by(orderBy).descending());
+		}
+		
+		if(usuarios != null) {
+			System.out.println("\nMostrando listado de usuarios registrados: \n");
+			for(Usuario user : usuarios) {
+				System.out.println(user.getId() + ", " + user.getNombre() + ", " + user.getUsername());
+			} 
+		} else {
+			System.err.println("Ocurrio un error al configurar el ordenamiento");
+		}
 	}
 	
 	/**
