@@ -40,6 +40,7 @@ public class MenuConsoleJPA implements IMenuConsole{
 				case "14" : jpa.mostrandoUsuariosUsandoJoinUnoaUno(); break;
 				case "15" : jpa.registrarVacante(); break;
 				case "16" : jpa.registrarPerfil(); break;
+				case "17" : jpa.mostrarCategorias(); break;
 				case "exit" : break;
 				default: System.err.println("\nOption Invalida!\n"); break;
 			}
@@ -69,6 +70,7 @@ public class MenuConsoleJPA implements IMenuConsole{
 				+ "14) Mostras datos Ligados (SQL INNER) \n"
 				+ "15) Guardar Vacante con relacion a tabla Categoria \n"
 				+ "16) Registrar Perfiles \n"
+				+ "17) Mostrar Categorias \n"
 				+ "(*) Pruebas Rapidas (exit) Salir de la aplicacion \n");
 	}
 }

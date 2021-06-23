@@ -15,6 +15,7 @@ import net.elinformatico.model.Categoria;
 import net.elinformatico.model.Perfil;
 import net.elinformatico.model.Usuario;
 import net.elinformatico.model.Vacantes;
+import net.elinformatico.service.ICategoriasService;
 import net.elinformatico.service.IUsuarioService;
 import net.elinformatico.service.jpa.PerfilesService;
 import net.elinformatico.service.jpa.VacantesService;
@@ -46,6 +47,25 @@ public class JpaExamples {
 
 	@Autowired
 	private PerfilesService perfilService;
+	
+	@Autowired
+	private ICategoriasService categoriaService;
+	
+	/**
+	 * Get all Categories order by name
+	 * @JPAExample findAll(Sort sort)
+	 * @author Noe Hernandez
+	 * @return List<Categoria>
+	 */
+	public void mostrarCategorias() 
+	{
+		System.out.println("Mostrando Categorias Registradas");
+		List<Categoria> categorias = categoriaService.obtenerCategorias();
+		
+		for(Categoria c : categorias) {
+			System.out.println(c.getId() + ", " + c.getNombre());
+		}
+	}
 	
 	/**
 	 * Save a Perfil to the Database
@@ -81,19 +101,49 @@ public class JpaExamples {
 	 */
 	public void registrarVacante() 
 	{
-		System.out.println("\nAlmacenando datos para Vacantes \n");
+		System.out.println("\nRegistrando una Vacante \n");
 		Vacantes vacante = new Vacantes();
-		vacante.setNombre("Full Stack Developer");
-		vacante.setDescripcion("Descripcion Fullstack Developer");
-		vacante.setFecha(new Date());
-		vacante.setSalario(75000.0);
-		vacante.setEstatus("Creada");
-		vacante.setDestacado(1);
-		vacante.setImagen("imageHcl.png");
-		vacante.setDetalles("Detalles Vacantes");
 		
-		// Creating a Category ID --> Full Stack Developer
+		System.out.println("Introduzca un nombre de Vacante:");
+		inputLine = input.nextLine();
+		vacante.setNombre(inputLine);
+		
+		System.out.println("Introduzca una descripcion para la Vacante:");
+		inputLine = input.nextLine();
+		vacante.setDescripcion(inputLine);
+		
+		System.out.println("Introduzca los detalles para la Vacante:");
+		inputLine = input.nextLine();
+		vacante.setDetalles(inputLine);
+		
+		vacante.setFecha(new Date());
+		
+		System.out.println("Introduzca un Salario (Solo numerico):");
+		inputLine = input.nextLine();
+		vacante.setSalario(Double.valueOf(inputLine));
+		
+		System.out.println("Introduzca un estatus ['Creada','Aprobada','Eliminada']:");
+		inputLine = input.nextLine();
+		vacante.setEstatus(inputLine);
+		
+		System.out.println("¿Es una Vacantes destacada? si/no");
+		inputLine = input.nextLine();
+		vacante.setDestacado((inputLine.contains("si") ? 1 : 0));
+		
+		System.out.println("Introduzca un nombre de imagen sin extension:");
+		inputLine = input.nextLine();
+		vacante.setImagen(inputLine + ".png");
+		
+		
 		Categoria categoria = new Categoria();
+		
+		
+		/*do {
+			
+			
+		} while(true);*/
+		
+		
 		categoria.setId(3);
 		
 		// Set a Category Object
