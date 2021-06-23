@@ -241,7 +241,7 @@ public class JpaExamples {
 			inputLine = input.nextLine();
 			userEntity.setPassword(inputLine);
 			
-			userEntity.setStatus(1);
+			userEntity.setEstatus(1);
 			userEntity.setFechaRegistro(new Date());
 			
 			// Adding the Usuario Entity to the List to be Save
@@ -507,7 +507,7 @@ public class JpaExamples {
 		inputLine = input.nextLine();
 		newUser.setPassword(inputLine);
 
-		newUser.setStatus(1);
+		newUser.setEstatus(1);
 		newUser.setFechaRegistro(new Date());
 
 		usuarioService.guardar(newUser);

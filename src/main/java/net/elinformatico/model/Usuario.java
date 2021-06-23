@@ -21,6 +21,7 @@ public class Usuario {
 	private String password;
 	private int estatus;
 	private Date FechaRegistro;
+	
 	public int getId() {
 		return id;
 	}
@@ -51,10 +52,10 @@ public class Usuario {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public int getStatus() {
+	public int getEstatus() {
 		return estatus;
 	}
-	public void setStatus(int status) {
+	public void setEstatus(int status) {
 		this.estatus = status;
 	}
 	public Date getFechaRegistro() {
@@ -63,6 +64,8 @@ public class Usuario {
 	public void setFechaRegistro(Date fechaRegistro) {
 		FechaRegistro = fechaRegistro;
 	}
+	
+	
 	@Override
 	public String toString() {
 		return "Usuarios [id=" + id + ", nombre=" + nombre + ", email=" + email + ", username=" + username
