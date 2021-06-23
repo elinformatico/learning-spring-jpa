@@ -2,8 +2,8 @@ package net.elinformatico.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import net.elinformatico.model.Solicitudes;
+import net.elinformatico.model.Solicitud;
 
-public interface SolicitudesRepository extends JpaRepository<Solicitudes, Integer> {
+public interface SolicitudesRepository extends JpaRepository<Solicitud, Integer> {
 
 }

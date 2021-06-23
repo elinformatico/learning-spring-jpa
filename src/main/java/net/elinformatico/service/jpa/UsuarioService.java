@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import net.elinformatico.model.Usuarios;
+import net.elinformatico.model.Vacante;
 import net.elinformatico.repository.UsuariosRepository;
 import net.elinformatico.service.IUsuarioService;
 
@@ -18,13 +18,13 @@ public class UsuarioService implements IUsuarioService{
 	private UsuariosRepository repo;
 	
 	@Override
-	public Usuarios guardar(Usuarios usuario) {
+	public Vacante guardar(Vacante usuario) {
 		return repo.save(usuario);
 	}
 
 	@Override
-	public Usuarios buscarPorId(Integer id) {
-		Optional<Usuarios> objUsuario = repo.findById(id);
+	public Vacante buscarPorId(Integer id) {
+		Optional<Vacante> objUsuario = repo.findById(id);
 		if(objUsuario.isPresent())
 			return objUsuario.get();
 		return null;
@@ -41,7 +41,7 @@ public class UsuarioService implements IUsuarioService{
 	}
 
 	@Override
-	public void eliminarPorEntidad(Usuarios usuario) {
+	public void eliminarPorEntidad(Vacante usuario) {
 		repo.delete(usuario);
 	}
 
@@ -62,21 +62,21 @@ public class UsuarioService implements IUsuarioService{
 	}
 
 	@Override
-	public Iterable<Usuarios> obtenerUsuario(List<Integer> ids) {
+	public Iterable<Vacante> obtenerUsuario(List<Integer> ids) {
 		return repo.findAllById(ids);
 	}
 
 	@Override
-	public Iterable<Usuarios> buscarTodos() {
+	public Iterable<Vacante> buscarTodos() {
 		return repo.findAll();
 	}
 	
-	public List<Usuarios> buscarTodos(Sort sort) {
+	public List<Vacante> buscarTodos(Sort sort) {
 		return repo.findAll(sort);
 	}
 
 	@Override
-	public Iterable<Usuarios> guardarVarios(Iterable<Usuarios> usuarios) {
+	public Iterable<Vacante> guardarVarios(Iterable<Vacante> usuarios) {
 		return repo.saveAll(usuarios);
 	}
 }

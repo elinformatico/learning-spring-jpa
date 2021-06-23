@@ -13,7 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import net.elinformatico.model.Categoria;
-import net.elinformatico.model.Usuarios;
+import net.elinformatico.model.Vacante;
 import net.elinformatico.model.Vacantes;
 import net.elinformatico.service.jpa.UsuarioService;
 import net.elinformatico.service.jpa.VacantesService;
@@ -56,8 +56,8 @@ public class MenuConsoleJPA implements IMenuConsole{
 		String option = "";
 		String idUsuario = "";
 		String inputLine = "";
-		Usuarios usuario;
-		List<Usuarios> usuarios;
+		Vacante usuario;
+		List<Vacante> usuarios;
 			
 		do {
 			showMainMenu();
@@ -82,7 +82,7 @@ public class MenuConsoleJPA implements IMenuConsole{
 					
 					switch (inputLine) {
 					case "usuarios":
-						Usuarios newUser = new Usuarios();
+						Vacante newUser = new Vacante();
 						System.out.println("\n\nInsertar Datos del Usuario\n\n");
 						
 						System.out.println("Introduzca el nombre: ");
@@ -186,9 +186,9 @@ public class MenuConsoleJPA implements IMenuConsole{
 				case "6.1" :
 					long countUsers = usuarioService.numeroRegistros();
 					System.out.println("\nMostrando " + countUsers + " Usuarios Registrados de la Tabla Usuarios:\n");
-					Iterable<Usuarios> allUsers = usuarioService.buscarTodos();
+					Iterable<Vacante> allUsers = usuarioService.buscarTodos();
 					
-					for(Usuarios user : allUsers) {
+					for(Vacante user : allUsers) {
 						System.out.println(user);
 					}
 					
@@ -199,7 +199,7 @@ public class MenuConsoleJPA implements IMenuConsole{
 					// List<Usuarios>
 					usuarios = usuarioService.buscarTodos(Sort.by("nombre").descending());
 					System.out.println("\nMostrando listado de usuarios registrados: \n");
-					for(Usuarios user : usuarios) {
+					for(Vacante user : usuarios) {
 						System.out.println(user.getId() + ", " + user.getNombre() + ", " + user.getUsername());
 					} 
 					
@@ -236,8 +236,8 @@ public class MenuConsoleJPA implements IMenuConsole{
 					System.out.println("\nMostrando los Usuarios seleccionado: \n");
 					
 					// Getting a List Entities of Usuarios
-					Iterable<Usuarios> users = usuarioService.obtenerUsuario(ids);
-					for(Usuarios user : users) {
+					Iterable<Vacante> users = usuarioService.obtenerUsuario(ids);
+					for(Vacante user : users) {
 						System.out.println(user);
 					}
 				break;
@@ -249,7 +249,7 @@ public class MenuConsoleJPA implements IMenuConsole{
 					if(usuarioService.existePorId(Integer.valueOf(inputLine))) {
 						System.out.println("El Usuario con ID " + inputLine + " si existe y es el siguiente: \n");
 						
-						Usuarios foundUser = usuarioService.buscarPorId(Integer.valueOf(inputLine));
+						Vacante foundUser = usuarioService.buscarPorId(Integer.valueOf(inputLine));
 						System.out.println(foundUser);
 						
 					} else
@@ -262,12 +262,12 @@ public class MenuConsoleJPA implements IMenuConsole{
 					inputLine = input.nextLine();
 					
 					int numUserToBeSaved = Integer.valueOf(inputLine);
-					List<Usuarios> newUsers = new LinkedList<Usuarios>();
+					List<Vacante> newUsers = new LinkedList<Vacante>();
 					
 					for(int i=0; i < numUserToBeSaved; i++) {
 						
 						// Declaring a new User Entity
-						Usuarios userEntity = new Usuarios();
+						Vacante userEntity = new Vacante();
 						System.out.println("Registrando Usuario numero " + (i+1) + "\n");
 						
 						System.out.println("Introduzca el nombre: ");
@@ -294,11 +294,11 @@ public class MenuConsoleJPA implements IMenuConsole{
 					}
 					
 					// Saving the new Entities into the Database and returning the new Users Objects
-					Iterable<Usuarios> newUsersSaved = usuarioService.guardarVarios(newUsers);
+					Iterable<Vacante> newUsersSaved = usuarioService.guardarVarios(newUsers);
 					System.err.println("Se registraron " + numUserToBeSaved + " nuevos Usuarios en la Base de Datos: \n");
 					
 					// Showing the new User saved
-					for(Usuarios user : newUsersSaved) {
+					for(Vacante user : newUsersSaved) {
 						System.out.println(user);
 					}
 					
@@ -306,14 +306,14 @@ public class MenuConsoleJPA implements IMenuConsole{
 				
 				case "12" : 
 					
-					Page<Usuarios> paginas= usuarioService.obtenerRepo()
+					Page<Vacante> paginas= usuarioService.obtenerRepo()
 						.findAll(PageRequest.of(1, 3, Sort.by("nombre")));
 					
 					System.out.println("Numero Total de Registros (getTotalElements): " + paginas.getTotalElements());
 					System.out.println("Numero Total de Paginas (getTotalPages): " + paginas.getTotalPages());
 					System.out.println("getNumberOfElements: " + paginas.getNumberOfElements());
 					
-					for(Usuarios u : paginas.getContent()) {
+					for(Vacante u : paginas.getContent()) {
 						System.out.println(u.getId() + ", " + u.getNombre());
 					}
 					
