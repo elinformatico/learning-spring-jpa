@@ -12,7 +12,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import net.elinformatico.model.Usuarios;
+import net.elinformatico.model.Vacantes;
 import net.elinformatico.service.jpa.UsuarioService;
+import net.elinformatico.service.jpa.VacantesService;
 
 @Service
 public class MenuConsoleJPA implements IMenuConsole{
@@ -20,9 +22,12 @@ public class MenuConsoleJPA implements IMenuConsole{
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	@Autowired
+	private VacantesService vacanteService;
+	
 	private void showMainMenu() {
 		System.out.println("\n\n\n-------- Java Persistance API (JPA) Menu -----------\n"
-				+ "1) Guardar Usuario 'save(Entity)' \n"
+				+ "1) Guardar datos 'save(Entity)' \n"
 				+ "2) Buscar Usuario por ID 'findById(Integer)' \n"
 				+ "3) Eliminar Usuario por ID 'deleteById(Integer)' \n"
 				+ "4) Eliminar Usuario por Entidad 'delete(Entity)' \n"
@@ -33,10 +38,12 @@ public class MenuConsoleJPA implements IMenuConsole{
 				+ "8) Eliminar todos los Usuarios 'deleteAll()' \n"
 				+ "9) Buscar por varios ID 'findAllById(Iterable<ID> ids)'\n"
 				+ "10) Verificar si existe Usuario por ID 'existsById(Integer)' \n"
-				+ "11) Guardar varios Usuarios 'saveAll(Iterable<Usuarios>)' \n"
+				+ "11) Guardar varios Usuarios 'saveAll(Iterable<Usuarios>)' \n\n"
 				+ "------- Advance options ----------------------------------\n"
 				+ "12) Paginacion de Registros 'Page<T> findAll(Pageable pageable)' \n"
-				+ "(salir) Para salir de la Aplicacion");
+				+ "13) Mostras datos Ligados (SQL INNER) \n"
+				+ "\n (*) Pruebas Rapidas \n"
+				+ "(exit) Para salir de la Aplicacion");
 	}
 	
 	@Override
@@ -54,35 +61,59 @@ public class MenuConsoleJPA implements IMenuConsole{
 			option = input.nextLine();
 			
 			switch (option) {
+				
+				// PRUEBAS RAPIDAS
+				case "*" : 
+					
+					
+				break;
 			
 				// INSERT VALUES TO THE TABLE "USER"
 				case "1" :
-					Usuarios newUser = new Usuarios();
-					System.out.println("\n\nInsertar Datos del Usuario\n\n");
+		
+					System.out.println("En que Entidad deseas Guardar los datos?\n\n");
+					System.out.println("- usuarios \n"
+							+ "- vacantes \n");
 					
-					System.out.println("Introduzca el nombre: ");
-					inputLine= input.nextLine();
-					newUser.setNombre(inputLine);
-					
-					System.out.println("Introduzca el email: ");
 					inputLine = input.nextLine();
-					newUser.setEmail(inputLine);
 					
-					System.out.println("Insert un nombre de Usuario: ");
-					inputLine = input.nextLine();
-					newUser.setUsername(inputLine);
+					switch (inputLine) {
+					case "usuarios":
+						Usuarios newUser = new Usuarios();
+						System.out.println("\n\nInsertar Datos del Usuario\n\n");
+						
+						System.out.println("Introduzca el nombre: ");
+						inputLine= input.nextLine();
+						newUser.setNombre(inputLine);
+						
+						System.out.println("Introduzca el email: ");
+						inputLine = input.nextLine();
+						newUser.setEmail(inputLine);
+						
+						System.out.println("Insert un nombre de Usuario: ");
+						inputLine = input.nextLine();
+						newUser.setUsername(inputLine);
+						
+						System.out.println("Insert un Password: ");
+						inputLine = input.nextLine();
+						newUser.setPassword(inputLine);
+						
+						newUser.setStatus(1);
+						newUser.setFechaRegistro(new Date());
+						
+						usuarioService.guardar(newUser);
+						
+						System.out.println("\nSe registro el Usuario " + newUser.getNombre() + " en la Base de Datos! \n\n\n");
+						System.out.println(newUser);
+					break;
 					
-					System.out.println("Insert un Password: ");
-					inputLine = input.nextLine();
-					newUser.setPassword(inputLine);
+					case "vacantes" : break;
+
+					default:
+						break;
+					}
 					
-					newUser.setStatus(1);
-					newUser.setFechaRegistro(new Date());
 					
-					usuarioService.guardar(newUser);
-					
-					System.out.println("\nSe registro el Usuario " + newUser.getNombre() + " en la Base de Datos! \n\n\n");
-					System.out.println(newUser);
 					break;
 					
 				// FIND USER BY ID
@@ -285,13 +316,22 @@ public class MenuConsoleJPA implements IMenuConsole{
 					
 				break;
 				
-				case "salir" : break;
+				case "13" : 
+					// Showing relation tables beetwen Vacantes & Categorias
+					System.out.println("\n\nMostrando Vacantes Registradas y su categoria relacionada \n");
+					List<Vacantes> vacantes = vacanteService.obtenerRepo().findAll();
+					for(Vacantes v : vacantes) {
+						System.out.println(v.getId() + ", " + v.getNombre() + ", " + v.getCategoria().getNombre());
+					}
+				break;
+				
+				case "exit" : break;
 				default:
 					System.out.println("\n\nOption Invalida!\n\n");
 					break;
 			}
 		
-		}while(!option.contains("salir"));
+		}while(!option.contains("exit"));
 		
 		input.close();
 		
