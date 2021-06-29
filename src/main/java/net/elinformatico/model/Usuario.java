@@ -1,11 +1,16 @@
 package net.elinformatico.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +26,17 @@ public class Usuario {
 	private String password;
 	private int estatus;
 	private Date FechaRegistro;
+	
+	/*** Set Many to Many to the Table/Entity Perfil 
+	 * Many User can have Many Perfiles
+	 * */
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "usuarioperfil", // External Table to JOIN the colum
+			joinColumns = @JoinColumn(name = "idUsuario"),    // Primary Key of the Table User
+			inverseJoinColumns = @JoinColumn(name="idPerfil") // Foreign Key if the another Table/Entity
+		)
+	private List<Perfil> perfiles;
 	
 	public int getId() {
 		return id;
@@ -64,8 +80,12 @@ public class Usuario {
 	public void setFechaRegistro(Date fechaRegistro) {
 		FechaRegistro = fechaRegistro;
 	}
-	
-	
+	public List<Perfil> getPerfiles() {
+		return perfiles;
+	}
+	public void setPerfiles(List<Perfil> perfiles) {
+		this.perfiles = perfiles;
+	}
 	@Override
 	public String toString() {
 		return "Usuarios [id=" + id + ", nombre=" + nombre + ", email=" + email + ", username=" + username
